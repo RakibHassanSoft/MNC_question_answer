@@ -1,0 +1,32 @@
+int search(vector<int>& arr, int n, int k)
+{
+    int left = 0, right = arr.size() - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        // If the element at mid is equal to k, return the index
+        if (arr[mid] == k)   return mid;
+    
+
+        // Left half is sorted
+        if (arr[left] <= arr[mid]) {
+            if (arr[left] <= k && k < arr[mid]) {
+                right = mid - 1;  // Search in the left half
+            } else {
+                left = mid + 1;  // Search in the right half
+            }
+        }
+        // Right half is sorted
+        else {
+            if (arr[mid] < k && k <= arr[right]) {
+                left = mid + 1;  // Search in the right half
+            } else {
+                right = mid - 1;  // Search in the left half
+            }
+        }
+    }
+
+    return -1;  // k not found
+
+}
